@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Input, QueryList, ViewChildren } from '@angular/core';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, Input, QueryList, ViewChildren } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Subject } from 'rxjs';
 import {
   HotToastClose,
@@ -20,6 +20,8 @@ import { HOT_TOAST_MARGIN } from '../../constants';
   selector: 'hot-toast-container',
   templateUrl: './hot-toast-container.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [CommonModule, HotToastComponent],
 })
 export class HotToastContainerComponent {
   @Input() defaultConfig: ToastConfig;

@@ -179,6 +179,17 @@ import { HotToastModule } from '@ngneat/hot-toast';
 class AppModule {}
 ```
 
+Additionally, you have the option of using a standalone function to provide a global toast configuration within your app's configuration file:
+
+```typescript
+// app.config.ts
+import { provideHotToastConfig } from '@ngneat/hot-toast';
+
+export const appConfig: ApplicationConfig = {
+  providers: [provideHotToastConfig({ ... })],
+};
+```
+
 ## Examples
 
 You can checkout examples at: <https://ngneat.github.io/hot-toast#examples>.

@@ -12,10 +12,10 @@ export class StepsComponent implements OnInit {
       subTitle: '',
       code: `
   ng add @ngneat/hot-toast
-  #or
-  npm install @ngneat/overview@2.0.2 @ngneat/hot-toast
-  #or
-  yarn add @ngneat/overview@2.0.2 @ngneat/hot-toast`,
+  # Or with npm
+  npm install @ngneat/overview@^5.0.0 @ngneat/hot-toast
+  # Or with yarn
+  yarn add @ngneat/overview@^5.0.0 @ngneat/hot-toast`,
       language: 'bash',
     },
     {
@@ -27,7 +27,6 @@ export class StepsComponent implements OnInit {
   @NgModule({
     imports: [HotToastModule.forRoot()],
   })
-
   export class AppModule {}`,
       language: 'typescript',
     },
