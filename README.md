@@ -106,6 +106,8 @@ npm install @ngneat/overview@5.1.0 @ngneat/hot-toast@6
 
 ### Module Setup
 
+> This is taken care with ng add @ngneat/hot-toast
+
 Now `HotToastModule` in your `app.module`. You can also set global toast options ([`Partial<ToastConfig>`](#toastconfig)) here.:
 
 ```typescript
