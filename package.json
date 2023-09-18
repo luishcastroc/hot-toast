@@ -18,7 +18,7 @@
     "commit": "cz",
     "release:first": "npm run release -- --first-release",
     "deploy": "ng deploy --base-href=/hot-toast/",
-    "copy": "cp -r README.md dist/ngneat/hot-toast",
+    "copy": "cpx README.md dist/ngneat/hot-toast",
     "build:lib": "ng build @ngneat/hot-toast --configuration production && npm run copy",
     "postbuild:lib": "npm run build --prefix ./projects/ngneat/hot-toast",
     "test:lib": "ng test @ngneat/hot-toast",

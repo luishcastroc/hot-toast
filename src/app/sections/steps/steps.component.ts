@@ -13,21 +13,33 @@ export class StepsComponent implements OnInit {
       code: `
   ng add @ngneat/hot-toast
   # Or with npm
-  npm install @ngneat/overview@^5.0.0 @ngneat/hot-toast
+  npm install @ngneat/overview@^5.1.0 @ngneat/hot-toast
   # Or with yarn
-  yarn add @ngneat/overview@^5.0.0 @ngneat/hot-toast`,
+  yarn add @ngneat/overview@^5.1.0 @ngneat/hot-toast`,
       language: 'bash',
     },
     {
       title: 'Import Toaster in your app',
-      subTitle: 'You can skip this if you installed using Angular CLI. You can set options here',
+      subTitle: 'You can set options here',
       code: `
+  // Module Setup
   import { HotToastModule } from '@ngneat/hot-toast';
 
   @NgModule({
     imports: [HotToastModule.forRoot()],
   })
-  export class AppModule {}`,
+  export class AppModule {}
+
+  // Standalone Setup
+  import { AppComponent } from './src/app.component';
+
+  import { provideHotToastConfig } from '@ngneat/hot-toast';
+
+  bootstrapApplication(AppComponent, {
+    providers: [
+      provideHotToastConfig(), // @ngneat/hot-toast providers
+    ]
+  });`,
       language: 'typescript',
     },
     {
@@ -38,8 +50,7 @@ export class StepsComponent implements OnInit {
 
   @Component({})
   export class AppComponent {
-    constructor(private toastService: HotToastService) {}
-  }
+  private toastService = inject(HotToastService);
 
   showToast() {
     this.toastService.show('Hello World!')
