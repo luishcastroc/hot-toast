@@ -3,7 +3,6 @@ import * as ts from 'typescript';
 import { addImportToModule } from '@schematics/angular/utility/ast-utils';
 import { Change, InsertChange } from '@schematics/angular/utility/change';
 import { getAppModulePath } from '@schematics/angular/utility/ng-ast-utils';
-import { getFileContent } from '@schematics/angular/utility/test/index';
 import { getProjectMainFile } from './project-main-file';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 import { parse } from 'jsonc-parser';
@@ -48,7 +47,7 @@ export function addStyleToTarget(
 
 export function getProjectFromWorkspace(workspace: WorkspaceSchema, projectName?: string): WorkspaceProject {
   /* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */
-  const project = workspace.projects[projectName || workspace.defaultProject!];
+  const project = workspace.projects[projectName!];
 
   if (!project) {
     throw new Error(`Could not find project in workspace: ${projectName}`);
@@ -174,4 +173,14 @@ export function getWorkspace(host: Tree) {
   }
   const content = configBuffer.toString();
   return parse(content);
+}
+
+function getFileContent(tree: Tree, path: string): string {
+  const fileEntry = tree.get(path);
+
+  if (!fileEntry) {
+    throw new Error(`The file (${path}) does not exist.`);
+  }
+
+  return fileEntry.content.toString();
 }

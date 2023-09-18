@@ -52,7 +52,15 @@
         5.x
       </td>
       <td>
-        >= 15
+        >= 15 < 16
+      </td>
+    </tr>
+    <tr>
+      <td>
+        6.x
+      </td>
+      <td>
+        >= 16
       </td>
     </tr>
   </tbody>
@@ -72,7 +80,7 @@
 - 🔁 **Events**
 - 🔒 **Persistent**
 
-## Installation
+## Installation and setup
 
 You can install it through **Angular CLI**:
 
@@ -89,11 +97,16 @@ npm install @ngneat/overview@2.0.2 @ngneat/hot-toast@3
 # For Angular version >= 13 < 15
 npm install @ngneat/overview@3.0.0 @ngneat/hot-toast@4
 
-# For Angular version >= 15
+# For Angular version >= 15 <16
 npm install @ngneat/overview@3.0.0 @ngneat/hot-toast@5
+
+# For Angular version >= 16
+npm install @ngneat/overview@5.1.0 @ngneat/hot-toast@6
 ```
 
-When you install using **npm or yarn**, you will also need to import `HotToastModule` in your `app.module`. You can also set global toast options ([`Partial<ToastConfig>`](#toastconfig)) here.:
+### Module Setup
+
+Now `HotToastModule` in your `app.module`. You can also set global toast options ([`Partial<ToastConfig>`](#toastconfig)) here.:
 
 ```typescript
 import { HotToastModule } from '@ngneat/hot-toast';
@@ -102,6 +115,36 @@ import { HotToastModule } from '@ngneat/hot-toast';
   imports: [HotToastModule.forRoot()],
 })
 class AppModule {}
+```
+
+### Standalone Setup
+
+```typescript
+import { AppComponent } from './src/app.component';
+
+import { provideHotToastConfig } from '@ngneat/hot-toast';
+
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideHotToastConfig(), // @ngneat/hot-toast providers
+  ]
+});
+```
+
+### Stylings
+
+if you use **SCSS** add this line to your main **styles.scss**:
+
+```scss
+@use '@ngneat/hot-toast/src/styles/styles.scss';
+```
+
+or if you use **CSS** add this to your styles inside your **angular.json**:
+
+```json
+"styles": [
+     "node_modules/@ngneat/hot-toast/src/styles/styles.css",
+],
 ```
 
 ## Basic Usage
@@ -177,6 +220,17 @@ import { HotToastModule } from '@ngneat/hot-toast';
   ],
 })
 class AppModule {}
+```
+
+Additionally, you have the option of using a standalone function to provide a global toast configuration within your app's configuration file:
+
+```typescript
+// app.config.ts
+import { provideHotToastConfig } from '@ngneat/hot-toast';
+
+export const appConfig: ApplicationConfig = {
+  providers: [provideHotToastConfig({ ... })],
+};
 ```
 
 ## Examples

@@ -5,6 +5,7 @@ import { IconTheme } from '../../../../hot-toast.model';
   selector: 'hot-toast-checkmark',
   templateUrl: './checkmark.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
 })
 export class CheckMarkComponent {
   @Input() theme: IconTheme;

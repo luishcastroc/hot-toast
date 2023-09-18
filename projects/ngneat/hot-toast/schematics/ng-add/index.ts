@@ -1,7 +1,7 @@
 /* eslint-disable prefer-arrow/prefer-arrow-functions */
 import { Rule, SchematicContext, Tree, SchematicsException, chain } from '@angular-devkit/schematics';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
-import { getAppModulePath } from '@schematics/angular/utility/ng-ast-utils';
+import { getAppModulePath, isStandaloneApp } from '@schematics/angular/utility/ng-ast-utils';
 import { insertImport, isImported } from '@schematics/angular/utility/ast-utils';
 import { InsertChange } from '@schematics/angular/utility/change';
 
@@ -46,7 +46,7 @@ export function ngAdd(options: Schema): Rule {
 
 function addPackageJsonDependencies(): Rule {
   return (host: Tree, context: SchematicContext) => {
-    const dependencies: { name: string; version: string }[] = [{ name: '@ngneat/overview', version: '^3.0.0' }];
+    const dependencies: { name: string; version: string }[] = [{ name: '@ngneat/overview', version: '^5.1.0' }];
 
     dependencies.forEach((dependency) => {
       addPackageToPackageJson(host, dependency.name, `${dependency.version}`);
@@ -88,23 +88,25 @@ function injectImports(options: Schema): Rule {
         throw targetBuildNotFoundError();
       }
 
-      const modulePath = getAppModulePath(host, project.architect.build.options.main);
-      const moduleSource = getSourceFile(host, modulePath);
+      if (!isStandaloneApp(host, project.architect.build.options.main)) {
+        const modulePath = getAppModulePath(host, project.architect.build.options.main);
+        const moduleSource = getSourceFile(host, modulePath);
 
-      importModuleSet.forEach((item) => {
-        if (isImported(moduleSource, item.moduleName, item.importPath)) {
-          context.logger.warn(`Could not import "${item.moduleName}" because it's already imported.`);
-        } else {
-          const change = insertImport(moduleSource, modulePath, item.moduleName, item.importPath);
+        importModuleSet.forEach((item) => {
+          if (isImported(moduleSource, item.moduleName, item.importPath)) {
+            context.logger.warn(`Could not import "${item.moduleName}" because it's already imported.`);
+          } else {
+            const change = insertImport(moduleSource, modulePath, item.moduleName, item.importPath);
 
-          if (change) {
-            const recorder = host.beginUpdate(modulePath);
-            recorder.insertLeft((change as InsertChange).pos, (change as InsertChange).toAdd);
-            host.commitUpdate(recorder);
-            context.logger.log('info', '✅ Written import statement for "' + item.moduleName + '"');
+            if (change) {
+              const recorder = host.beginUpdate(modulePath);
+              recorder.insertLeft((change as InsertChange).pos, (change as InsertChange).toAdd);
+              host.commitUpdate(recorder);
+              context.logger.log('info', '✅ Written import statement for "' + item.moduleName + '"');
+            }
           }
-        }
-      });
+        });
+      }
       return host;
     }
   };
@@ -129,16 +131,18 @@ function addModuleToImports(options: Schema): Rule {
         throw new SchematicsException(`Architect:Build options not present for project.`);
       }
 
-      const modulePath = getAppModulePath(host, project.architect.build.options.main);
+      if (!isStandaloneApp(host, project.architect.build.options.main)) {
+        const modulePath = getAppModulePath(host, project.architect.build.options.main);
 
-      importModuleSet.forEach((item) => {
-        if (hasNgModuleImport(host, modulePath, item.moduleName)) {
-          context.logger.warn(`Could not set up "${item.moduleName}" in "imports[]" because it's already imported.`);
-        } else {
-          addModuleImportToRootModule(host, item.importModuleStatement, null as any, project);
-          context.logger.log('info', '✅ Imported "' + item.moduleName + '" in imports');
-        }
-      });
+        importModuleSet.forEach((item) => {
+          if (hasNgModuleImport(host, modulePath, item.moduleName)) {
+            context.logger.warn(`Could not set up "${item.moduleName}" in "imports[]" because it's already imported.`);
+          } else {
+            addModuleImportToRootModule(host, item.importModuleStatement, null as any, project);
+            context.logger.log('info', '✅ Imported "' + item.moduleName + '" in imports');
+          }
+        });
+      }
     }
 
     return host;

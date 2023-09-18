@@ -15,17 +15,22 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { isComponent, isTemplateRef } from '@ngneat/overview';
+import { CommonModule } from '@angular/common';
+import { DynamicViewModule, isComponent, isTemplateRef } from '@ngneat/overview';
 
 import { ENTER_ANIMATION_DURATION, EXIT_ANIMATION_DURATION } from '../../constants';
 import { HotToastRef } from '../../hot-toast-ref';
 import { CreateHotToastRef, HotToastClose, Toast, ToastConfig } from '../../hot-toast.model';
 import { animate } from '../../utils';
+import { IndicatorComponent } from '../indicator/indicator.component';
+import { AnimatedIconComponent } from '../animated-icon/animated-icon.component';
 
 @Component({
   selector: 'hot-toast',
   templateUrl: 'hot-toast.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [CommonModule, DynamicViewModule, IndicatorComponent, AnimatedIconComponent],
 })
 export class HotToastComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
   @Input() toast: Toast<unknown>;

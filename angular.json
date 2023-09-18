@@ -29,6 +29,14 @@
             "allowedCommonJsDependencies": ["prismjs"]
           },
           "configurations": {
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -56,7 +64,8 @@
                 }
               ]
             }
-          }
+          },
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -64,10 +73,14 @@
             "browserTarget": "toast:build"
           },
           "configurations": {
+            "development": {
+              "browserTarget": "toast:build:development"
+            },
             "production": {
               "browserTarget": "toast:build:production"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
