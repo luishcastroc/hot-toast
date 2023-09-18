@@ -1,3 +1,23 @@
+# [6.0.0-beta.2](https://github.com/ngneat/hot-toast/compare/v6.0.0-beta.1...v6.0.0-beta.2) (2023-09-18)
+
+
+### Features
+
+* **readme:** update content and trigger release ([8871a97](https://github.com/ngneat/hot-toast/commit/8871a97f4b68545ff58b91de156bc741d6a76073))
+
+# [6.0.0-beta.1](https://github.com/ngneat/hot-toast/compare/v5.0.2...v6.0.0-beta.1) (2023-09-18)
+
+
+### Features
+
+* docs ([8a5879a](https://github.com/ngneat/hot-toast/commit/8a5879a46ca3e62e23d71805979ad85f0ea3cacf)), closes [#138](https://github.com/ngneat/hot-toast/issues/138)
+* upgrade to Angular 16, mark components as standalone ([a2431bd](https://github.com/ngneat/hot-toast/commit/a2431bd795144080b6e0063e80b48d53030bfa45))
+
+
+### BREAKING CHANGES
+
+* Updating to Angular v16
+
 ## [5.0.2](https://github.com/ngneat/hot-toast/compare/v5.0.1...v5.0.2) (2023-06-24)
 
 

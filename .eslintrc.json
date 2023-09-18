@@ -1,6 +1,8 @@
 {
   "root": true,
   "ignorePatterns": ["projects/**/*"],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "@angular-eslint", "prefer-arrow"],
   "overrides": [
     {
       "files": ["*.ts"],
@@ -8,11 +10,6 @@
         "project": ["tsconfig.json"],
         "createDefaultProgram": true
       },
-      "extends": [
-        "plugin:@angular-eslint/ng-cli-compat",
-        "plugin:@angular-eslint/ng-cli-compat--formatting-add-on",
-        "plugin:@angular-eslint/template/process-inline-templates"
-      ],
       "rules": {
         "@angular-eslint/component-selector": [
           "error",
