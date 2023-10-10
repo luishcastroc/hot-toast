@@ -1,3 +1,10 @@
+## [6.0.1-beta.1](https://github.com/ngneat/hot-toast/compare/v6.0.0...v6.0.1-beta.1) (2023-10-10)
+
+
+### Bug Fixes
+
+* **hot-toast.component.html:** usage of dynamicView directive ([7246653](https://github.com/ngneat/hot-toast/commit/7246653a45ccc265f5bba9a4a7c33754af41664e)), closes [#124](https://github.com/ngneat/hot-toast/issues/124)
+
 # [6.0.0](https://github.com/ngneat/hot-toast/compare/v5.0.2...v6.0.0) (2023-09-18)
 
 
