@@ -19,7 +19,7 @@
         </ng-container>
         <ng-template #iconTemplateOrComponent>
           <div>
-            <ng-container [dynamicView]="toast.icon"></ng-container>
+            <ng-container *dynamicView="toast.icon"></ng-container>
           </div>
         </ng-template>
       </ng-container>
